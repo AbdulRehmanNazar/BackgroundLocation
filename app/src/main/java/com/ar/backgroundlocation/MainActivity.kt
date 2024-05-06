@@ -30,10 +30,7 @@ class MainActivity : ComponentActivity() {
             }
         }
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.TIRAMISU) {
-            if (ContextCompat.checkSelfPermission(
-                    this, Manifest.permission.POST_NOTIFICATIONS
-                ) != PackageManager.PERMISSION_GRANTED
-            ) {
+            if (hasNotificationPerm()) {
                 requestMultiplePermissions.launch(
                     arrayOf(
                         Manifest.permission.POST_NOTIFICATIONS,
@@ -80,7 +77,7 @@ class MainActivity : ComponentActivity() {
     }
 
     private fun checkLocationPerm() {
-        if (!checkLocationPermissions()) {
+        if (!hasLocationPermission()) {
             requestLocationPerm.launch(
                 Manifest.permission.ACCESS_FINE_LOCATION
             )
@@ -90,20 +87,11 @@ class MainActivity : ComponentActivity() {
     }
 
     private fun askForBGPermission() {
-        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.Q && ContextCompat.checkSelfPermission(
-                this, Manifest.permission.ACCESS_BACKGROUND_LOCATION
-            ) != PackageManager.PERMISSION_GRANTED
-        ) {
-            requestBGLocationPerm.launch(Manifest.permission.ACCESS_BACKGROUND_LOCATION)
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.Q) {
+            if (!hasBGLocationPermission()) {
+                requestBGLocationPerm.launch(Manifest.permission.ACCESS_BACKGROUND_LOCATION)
+            }
         }
-    }
-
-    private fun checkLocationPermissions(): Boolean {
-        return ContextCompat.checkSelfPermission(
-            this, Manifest.permission.ACCESS_FINE_LOCATION
-        ) == PackageManager.PERMISSION_GRANTED && ContextCompat.checkSelfPermission(
-            this, Manifest.permission.ACCESS_FINE_LOCATION
-        ) == PackageManager.PERMISSION_GRANTED
     }
 }
 
