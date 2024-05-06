@@ -1,29 +1,27 @@
 package com.ar.backgroundlocation
 
+import android.Manifest
+import android.content.pm.PackageManager
+import android.os.Build
 import android.os.Bundle
-import android.widget.Toast
+import android.util.Log
 import androidx.activity.ComponentActivity
 import androidx.activity.compose.setContent
-import androidx.compose.foundation.layout.Arrangement
-import androidx.compose.foundation.layout.Column
+import androidx.activity.result.contract.ActivityResultContracts
 import androidx.compose.foundation.layout.fillMaxSize
-import androidx.compose.material3.Button
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Surface
-import androidx.compose.material3.Text
-import androidx.compose.runtime.Composable
-import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
-import androidx.compose.ui.platform.LocalContext
-import androidx.compose.ui.tooling.preview.Preview
+import androidx.core.content.ContextCompat
 import com.ar.backgroundlocation.ui.theme.BackGroundLocationTheme
 
 class MainActivity : ComponentActivity() {
+    private val TAG = MainActivity::class.java.simpleName
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContent {
             BackGroundLocationTheme {
-                // A surface container using the 'background' color from the theme
                 Surface(
                     modifier = Modifier.fillMaxSize(), color = MaterialTheme.colorScheme.background
                 ) {
@@ -31,32 +29,86 @@ class MainActivity : ComponentActivity() {
                 }
             }
         }
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.TIRAMISU) {
+            if (ContextCompat.checkSelfPermission(
+                    this, Manifest.permission.POST_NOTIFICATIONS
+                ) != PackageManager.PERMISSION_GRANTED
+            ) {
+                requestMultiplePermissions.launch(
+                    arrayOf(
+                        Manifest.permission.POST_NOTIFICATIONS,
+                        Manifest.permission.ACCESS_FINE_LOCATION
+                    )
+                )
+            } else {
+                checkLocationPerm()
+            }
+        } else {
+            checkLocationPerm()
+        }
+    }
+
+    private val requestMultiplePermissions = registerForActivityResult(
+        ActivityResultContracts.RequestMultiplePermissions()
+    ) { permissions ->
+        permissions.entries.forEach {
+            Log.d("DEBUG", "${it.key} = ${it.value}")
+            if (it.key == "android.permission.POST_NOTIFICATIONS" && it.value) {
+                askForBGPermission()
+            }
+        }
+    }
+
+    private val requestLocationPerm = registerForActivityResult(
+        ActivityResultContracts.RequestPermission()
+    ) { isGranted ->
+        if (isGranted) {
+            askForBGPermission()
+        } else {
+            Log.d(TAG, "Permission is not $isGranted")
+        }
+    }
+
+    private val requestBGLocationPerm = registerForActivityResult(
+        ActivityResultContracts.RequestPermission()
+    ) { isGranted ->
+        if (isGranted) {
+            Log.d(TAG, "Background Permission is $isGranted")
+        } else {
+            Log.d(TAG, "Background Permission is not $isGranted")
+        }
+    }
+
+    private fun checkLocationPerm() {
+        if (!checkLocationPermissions()) {
+            requestLocationPerm.launch(
+                Manifest.permission.ACCESS_FINE_LOCATION
+            )
+        } else {
+            askForBGPermission()
+        }
+    }
+
+    private fun askForBGPermission() {
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.Q && ContextCompat.checkSelfPermission(
+                this, Manifest.permission.ACCESS_BACKGROUND_LOCATION
+            ) != PackageManager.PERMISSION_GRANTED
+        ) {
+            requestBGLocationPerm.launch(Manifest.permission.ACCESS_BACKGROUND_LOCATION)
+        }
+    }
+
+    private fun checkLocationPermissions(): Boolean {
+        return ContextCompat.checkSelfPermission(
+            this, Manifest.permission.ACCESS_FINE_LOCATION
+        ) == PackageManager.PERMISSION_GRANTED && ContextCompat.checkSelfPermission(
+            this, Manifest.permission.ACCESS_FINE_LOCATION
+        ) == PackageManager.PERMISSION_GRANTED
     }
 }
 
-@Preview
-@Composable
-fun App() {
-    val context = LocalContext.current
 
-    Column(
-        modifier = Modifier.fillMaxSize(),
-        verticalArrangement = Arrangement.Center,
-        horizontalAlignment = Alignment.CenterHorizontally
-    ) {
-        Button(onClick = {
-            //Start Service
-            Toast.makeText(context, "Service Start button clicked", Toast.LENGTH_SHORT).show()
-        }) {
-            Text(text = "Start Service")
-        }
-        Button(onClick = {
-            //Stop Service
-            Toast.makeText(context, "Service Stop button clicked", Toast.LENGTH_SHORT).show()
-        }) {
-            Text(text = "Stop Service")
-        }
-    }
-}
+
+
 
 
