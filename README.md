@@ -6,8 +6,11 @@
 [![Android Studio](https://img.shields.io/badge/Android-Studio-Jellyfish)](https://developer.android.com/studio/preview)
 
 # BackGround Location application
-Advanced tech application design and development using JetPack Compose, ForeGround Service to get location-even applications in the background.<br />
+Advanced tech application design and development using JetPack Compose, ForeGround Service to get location-even applications in the background on Android 10 and above.<br />
 <video src="https://github.com/AbdulRehmanNazar/BackgroundLocation/assets/6792823/e2f1a2f9-c141-4f0b-a92a-e9f357a1a23d" />
+
+## Notification Screenshot 
+<img src="https://github.com/AbdulRehmanNazar/BackgroundLocation/blob/main/screenshots/Background%20Location.jpg" width=320 />
 
 
 
@@ -22,9 +25,17 @@ https://youtube.com/shorts/nR5pZA7Ktzs
 </a>
 <br />
 <br />
+<br />
+<br />
 
-##<a href="https://github.com/AbdulRehmanNazar/BackgroundLocation/blob/main/BackGround%20Location%20Tracker.apk">Download demo Application</a>
+<a href="https://github.com/AbdulRehmanNazar/BackgroundLocation/blob/main/BackGround%20Location%20Tracker.apk">Download demo Application</a>
 
+
+# From Android 10, the item "Allow only while using the app" has been added to the selection items on the app settings screen.
+
+If **"Allow only while using the app"** is checked, location information in the background will not be performed.
+
+<img src="https://github.com/AbdulRehmanNazar/BackgroundLocation/blob/main/screenshots/Permission%20Screen.jpg" width=320 />
 
 ## License:
 
