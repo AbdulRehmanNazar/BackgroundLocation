@@ -6,18 +6,18 @@ Advance tech application design and develop using JetPack Compose, ForeGround Se
 
 Here is YouTube link: <br />
 https://youtube.com/shorts/nR5pZA7Ktzs
-
+<br />
 ## Author:
 
 
 <a href="https://github.com/AbdulRehmanNazar" target="_blank">
-  <img src="https://avatars.githubusercontent.com/u/6792823?v=4" width="70" align="left">
+  <img src="https://avatars.githubusercontent.com/u/6792823?v=4">
 </a>
-
+<br />
 ## License:
-
-Copyright 2023 Dmitri Chernysh
-
+<br />
+Copyright 2023 Abdul Rehman Nazar
+<br />
 Licensed under the Apache License, Version 2.0 (the "License");
 you may not use this file except in compliance with the License.
 You may obtain a copy of the License at
