@@ -7,6 +7,12 @@ Advance tech application design and develop using JetPack Compose, ForeGround Se
 Here is YouTube link: <br />
 https://youtube.com/shorts/nR5pZA7Ktzs
 
+## Author:
+
+
+<a href="https://github.com/AbdulRehmanNazar" target="_blank">
+  <img src="https://avatars.githubusercontent.com/u/6792823?v=4" width="70" align="left">
+</a>
 
 ## License:
 
