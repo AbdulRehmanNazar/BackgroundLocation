@@ -30,7 +30,7 @@ class MainActivity : ComponentActivity() {
             }
         }
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.TIRAMISU) {
-            if (hasNotificationPerm()) {
+            if (!hasNotificationPerm()) {
                 requestMultiplePermissions.launch(
                     arrayOf(
                         Manifest.permission.POST_NOTIFICATIONS,
