@@ -40,7 +40,7 @@ If **"Allow only while using the app"** is checked, location information in the 
 ## License:
 
 
-Copyright 2023 Abdul Rehman Nazar
+Copyright 2024 Abdul Rehman Nazar
 <br />
 
 Licensed under the Apache License, Version 2.0 (the "License");
